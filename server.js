@@ -1,0 +1,38 @@
+import express from 'express';
+const app = express();
+
+import dotenv from 'dotenv';
+dotenv.config();
+
+import connectDB from './db/connect.js';
+import { router as authRouter } from './routes/authRoutes.js';
+
+// Middleware
+import notFoundMiddleware from './middleware/not-found.js';
+import errorHandlerMiddleware from './middleware/error-handler.js';
+
+app.get('/', (req, res) => {
+  // throw new Error('Error')
+  res.send('Welcome!')
+})
+
+app.use('/api/v1/auth', authRouter)
+
+// NOT FOUND MIDDLEWARE: If there is no matching route above
+app.use(notFoundMiddleware);
+// ERROR HANDLER MIDDLEWARE: places at last
+app.use(errorHandlerMiddleware);
+
+const port = process.env.PORT || 3001;
+const start = async() => {
+  try {
+    await connectDB(process.env.MONGO_URL)
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port} ...`)
+    })
+  } catch(error) {
+    console.log(error)
+  }
+}
+
+start();
