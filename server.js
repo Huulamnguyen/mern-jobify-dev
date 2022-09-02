@@ -6,6 +6,7 @@ dotenv.config();
 
 import connectDB from './db/connect.js';
 import authRouter from './routes/authRoutes.js';
+import jobRouter from './routes/jobRoutes.js';
 
 // Middleware
 import notFoundMiddleware from './middleware/not-found.js';
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/jobs', jobRouter)
 
 // NOT FOUND MIDDLEWARE: If there is no matching route above
 app.use(notFoundMiddleware);
