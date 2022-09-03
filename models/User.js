@@ -23,7 +23,7 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: [true, "Please provide a password"],
-        minlength: 6
+        minlength: [6, "at least 6 chars"]
     },
     lastName: {
         type: String,
@@ -40,4 +40,4 @@ const userSchema = new Schema({
 })
 
 const User = mongoose.model("User", userSchema);
-module.exports = User;
+export default User;
