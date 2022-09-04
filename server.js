@@ -17,16 +17,17 @@ import errorHandlerMiddleware from './middleware/error-handler.js';
 app.use(express.json())
 
 app.get('/', (req, res) => {
-  // throw new Error('Error')
-  res.send('Welcome!')
+  res.json({ msg: 'Welcome!' })
+})
+
+app.get('/api/v1', (req, res) => {
+  res.json({ msg: 'Backend API!' })
 })
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/jobs', jobRouter)
 
-// NOT FOUND MIDDLEWARE: If there is no matching route above
 app.use(notFoundMiddleware);
-// ERROR HANDLER MIDDLEWARE: places at last
 app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 3001;
