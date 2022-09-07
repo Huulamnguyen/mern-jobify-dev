@@ -2,7 +2,9 @@ import {useEffect} from 'react';
 
 const Dashboard = () => {
   return (
-    <div>Dashboard Page</div>
+    <div>
+      <h1>Dashboard Page</h1>
+    </div>
   )
 }
  export default Dashboard;
