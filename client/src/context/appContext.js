@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useContext } from 'react';
+import React, { useReducer, useContext } from 'react';
 import axios from 'axios';
 import reducer from './reducer';
 import { 
@@ -84,7 +84,19 @@ const AppProvider = ({ children }) => {
         dispatch({ type: LOGOUT_USER })
         removeUserFromLocalStorage();
     }
-    
+
+    const updateUser = async (currentUser) => {
+        try {
+            const { data } = await axios.patch('/api/v1/auth/updateUser', currentUser, {
+                headers:{
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            console.log(data)
+        } catch (error) {
+            console.log(error.response)
+        }
+    }
 
     return (
         <AppContext.Provider 
@@ -95,6 +107,7 @@ const AppProvider = ({ children }) => {
                 setupUser,
                 toggleSidebar, 
                 logoutUser,
+                updateUser
             }}
         >
             {children}
