@@ -8,4 +8,4 @@ class UnAuthenticatedError extends CustomAPIError {
   }
 }
 
-export default UnAuthenticatedError
+export default UnAuthenticatedError;
