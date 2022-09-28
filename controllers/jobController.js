@@ -21,48 +21,47 @@ const createJob = async (req, res) => {
 
 
 const getAllJobs = async (req, res) => {
-
-    const { search, status, jobType, sort } = req.query;
-
+    const { search, status, jobType, sort } = req.query
     const queryObject = {
-        createdBy: req.user.userId
+        createdBy: req.user.userId,
     }
-
-    if (status && status !== 'all'){
-        queryObject.status = status
-    }
-    if (jobType && jobType !== 'all'){
-        queryObject.jobType = jobType
-    }
-    if (search){
+    if (search) {
         queryObject.position = { $regex: search, $options: 'i' }
     }
+    if (status !== 'all') {
+        queryObject.status = status
+    }
+    if (jobType !== 'all') {
+        queryObject.jobType = jobType
+    }
+    let result = Job.find(queryObject)
 
-    // NO WAIT
-    let result = Job.find(queryObject);
-
-    // Chain sort conditions
-    if (sort === 'latest'){
+    if (sort === 'latest') {
         result = result.sort('-createdAt')
     }
-    
-    if(sort === 'oldest'){
+    if (sort === 'oldest') {
         result = result.sort('createdAt')
     }
-
-    if(sort === 'a-z'){
+    if (sort === 'a-z') {
         result = result.sort('position')
     }
-
-    if(sort === 'z-a'){
+    if (sort === 'z-a') {
         result = result.sort('-position')
     }
 
-    const jobs = await result;
+    // setup pagination
+    const page = Number(req.query.page) || 1
+    const limit = Number(req.query.limit) || 10
+    const skip = (page - 1) * limit
 
-    res
-    .status(StatusCodes.OK)
-    .json({ jobs, totalJobs: jobs.length, numOfPages: 1 })
+    result = result.skip(skip).limit(limit)
+
+    const jobs = await result
+
+    const totalJobs = await Job.countDocuments(queryObject)
+    const numOfPages = Math.ceil(totalJobs / limit)
+
+    res.status(StatusCodes.OK).json({ jobs, totalJobs, numOfPages })
 }
 
 const deleteJob = async (req, res) => {
