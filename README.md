@@ -1,23 +1,40 @@
 # Jobify
 
 ## Track Your Job Search
+
 - A mini project that applied MERN stack - MongoDB, ExpressJS, ReactJS, and NodeJS
 - An application that allows users to organize their job hunting process professionally and efficiently
 
-## How to run the app locally
-```sh
-npm run install-dependencies
-```
+## Deployment:
 
-- rename .env.temp to .env
-- setup values for - MONGO_URL, JWT_SECRET, JWT_LIFETIME
+- (Jobify MERN Production)[https://jobify-mern-production.herokuapp.com/landing]
 
-```sh
-npm start
-```
+## Tech Stack
 
-- visit url http://localhost:3000/
+### Frontend:
 
-## References:
-- This application is inspired by the same application called Jobify which was built by John Smilga, found on Udemy
-- You may find that there are some similarities but I'm trying to modify it my own way
+- ReactJS
+- Styled Component
+- Axios: sending requests
+- React Router
+- Recharts: for graph and chart
+- React Icons: react-icons
+
+### Backend:
+
+- NodeJS
+- ExpressJS
+- MongoDB
+- Mongoose
+
+## Other resources:
+
+- Nodemon: automatically run server and client
+- dotenv: config env secrets
+- bcrypt: hashed password and handle authorization
+- JWT - json web token: authentication and authorization
+- validator: validation models
+- express-async-errors
+- express-mongo-sanitize
+- xss-clean
+- express-rate-limit
