@@ -7,7 +7,7 @@
 
 ## Deployment:
 
-- (Jobify MERN Production)[https://jobify-mern-production.herokuapp.com/landing]
+- [Jobify MERN Production](https://jobify-mern-production.herokuapp.com/landing)
 
 ## Tech Stack
 
